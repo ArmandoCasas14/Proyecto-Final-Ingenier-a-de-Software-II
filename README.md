@@ -21,3 +21,20 @@ Proyecto académico desarrollado para la asignatura Ingeniería de Software II. 
 | Responsable de pruebas | Juan David Medina Correa |
 | Responsable de calidad | Luis Armando Perez Isaza |
 | Responsable de documentación | Juan David Medina Correa |
+
+# Alcance del proyecto
+
+El proyecto comprende el análisis, diseño y desarrollo de una aplicación para la gestión de entradas a salas de cine, como parte de las actividades académicas de la asignatura Ingeniería de Software II.
+
+La aplicación busca facilitar la administración y el control de las entradas a las salas de cine, permitiendo gestionar la información necesaria para el registro de entradas y la verificación del acceso de los usuarios.
+
+Durante su desarrollo se aplicarán buenas prácticas de ingeniería de software, incluyendo:
+
+- Definición de requerimientos funcionales y no funcionales.
+- Especificación de criterios de aceptación.
+- Control de versiones mediante Git y GitHub.
+- Diseño y automatización de pruebas.
+- Evaluación de la calidad del software.
+- Elaboración de documentación técnica.
+
+El alcance se limita a la construcción de una aplicación funcional con las características definidas por el equipo para el desarrollo académico de la asignatura. No contempla necesariamente la integración con plataformas comerciales de venta de entradas, pasarelas de pago ni sistemas externos de gestión de cines.
