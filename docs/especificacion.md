@@ -33,58 +33,42 @@
 
 ## 3. Criterios de Aceptación (Dado / Cuando / Entonces)
 
-CA-01: Registro exitoso de una función (RF-01)
-Dado que el usuario ingresa un título de película, sala, fecha, hora y un precio válido.
+* **CA-01: Registro exitoso de una función (RF-01)**
+  * Dado que el usuario ingresa un título de película, sala, fecha, hora y un precio válido.
+  * Cuando presiona el botón de guardar.
+  * Entonces la función se almacena en el sistema y se muestra en la lista general de funciones disponibles.
 
-Cuando presiona el botón de guardar.
+* **CA-02: Validación de precio negativo o cero (RF-01)**
+  * Dado que el usuario intenta registrar una función con un precio menor o igual a cero.
+  * Cuando presiona el botón de guardar.
+  * Entonces el sistema rechaza el registro y muestra un mensaje de error indicando que el precio debe ser un valor positivo.
 
-Entonces la función se almacena en el sistema y se muestra en la lista general de funciones disponibles.
+* **CA-03: Visualización del listado de funciones (RF-02)**
+  * Dado que existen funciones registradas en la base de datos.
+  * Cuando el usuario accede a la sección de funciones.
+  * Entonces el sistema muestra una lista con el título, sala, fecha, hora y precio de cada función.
 
-CA-02: Validación de precio negativo o cero (RF-01)
-Dado que el usuario intenta registrar una función con un precio menor o igual a cero.
+* **CA-04: Edición o eliminación de una función (RF-03)**
+  * Dado que el usuario selecciona una función previamente registrada.
+  * Cuando modifica sus datos o selecciona la opción de eliminar y confirma la acción.
+  * Entonces la información de la función se actualiza o se elimina correctamente de la lista.
 
-Cuando presiona el botón de guardar.
+* **CA-05: Emisión exitosa de una entrada (RF-04)**
+  * Dado que el usuario selecciona una función existente e ingresa el nombre del cliente y el número de asiento deseado.
+  * Cuando confirma la compra o registro de la entrada.
+  * Entonces el sistema genera y almacena la entrada asociada correctamente a esa función.
 
-Entonces el sistema rechaza el registro y muestra un mensaje de error indicando que el precio debe ser un valor positivo.
+* **CA-06: Búsqueda y verificación de entrada (RF-05)**
+  * Dado que se ingresa un código de entrada o el nombre de un cliente con un boleto válido.
+  * Cuando el usuario ejecuta la opción de consulta o verificación.
+  * Entonces el sistema muestra los detalles del boleto y confirma que el acceso a la sala es válido.
 
-CA-03: Visualización del listado de funciones (RF-02)
-Dado que existen funciones registradas en la base de datos.
+* **CA-07: Cancelación o eliminación de una entrada (RF-06)**
+  * Dado que el usuario selecciona una entrada ya registrada.
+  * Cuando presiona la opción de anular o eliminar y confirma la acción.
+  * Entonces el sistema borra o invalida la entrada para que no pueda ser utilizada en el control de acceso.
 
-Cuando el usuario accede a la sección de funciones.
-
-Entonces el sistema muestra una lista clara con el título, sala, fecha, hora y precio de cada función.
-
-CA-04: Edición o eliminación de una función (RF-03)
-Dado que el usuario selecciona una función previamente registrada.
-
-Cuando modifica sus datos (o selecciona la opción de eliminar) y confirma la acción.
-
-Entonces la información de la función se actualiza en el sistema (o se elimina correctamente de la lista).
-
-CA-05: Emisión exitosa de una entrada (RF-04)
-Dado que el usuario selecciona una función existente y proporciona el nombre del cliente y el número de asiento deseado.
-
-Cuando confirma la compra o registro de la entrada.
-
-Entonces el sistema genera y almacena la entrada asociada correctamente a esa función.
-
-CA-06: Búsqueda y verificación de entrada (RF-05)
-Dado que se ingresa un código de entrada o el nombre de un cliente con un boleto válido.
-
-Cuando el usuario ejecuta la opción de consulta/verificación.
-
-Entonces el sistema muestra los detalles del boleto y confirma que el acceso a la sala es válido.
-
-CA-07: Cancelación o eliminación de una entrada (RF-06)
-Dado que el usuario selecciona una entrada ya registrada.
-
-Когда / Cuando presiona la opción de anular o eliminar y confirma la acción.
-
-Entonces el sistema borra o invalida la entrada para que no pueda ser usada en el control de acceso.
-
-CA-08: Definición de la capacidad de la sala (RF-07)
-Dado que el usuario está creando o editando una función/sala de cine.
-
-Cuando ingresa el número máximo de asientos disponibles para dicha sala y guarda los cambios.
-
-Entonces el sistema almacena esta capacidad máxima para limitar el registro de entradas y evitar sobrecupos.
+* **CA-08: Definición de la capacidad de la sala (RF-07)**
+  * Dado que el usuario está creando o editando una función o sala de cine.
+  * Cuando ingresa el número máximo de asientos disponibles y guarda los cambios.
+  * Entonces el sistema almacena la capacidad máxima para limitar el registro de entradas y evitar sobrecupos.
