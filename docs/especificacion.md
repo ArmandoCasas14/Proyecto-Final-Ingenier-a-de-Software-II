@@ -15,7 +15,7 @@
   * El sistema debe permitir buscar una entrada por su código o cliente para validar el ingreso a la sala de cine.
 * **RF-06: Cancelar / Eliminar Entrada**
   * El sistema debe permitir anular o eliminar una entrada registrada.
-  * **RF-07: Definir Capacidad de la Sala**
+* **RF-07: Definir Capacidad de la Sala**
   * El sistema debe permitir definir y modificar la capacidad máxima de personas (número de asientos disponibles) para cada sala o función registrada.
 
 ---
