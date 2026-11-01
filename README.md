@@ -28,6 +28,8 @@ El proyecto comprende el análisis, diseño y desarrollo de una aplicación para
 
 La aplicación busca facilitar la administración y el control de las entradas a las salas de cine, permitiendo gestionar la información necesaria para el registro de entradas y la verificación del acceso de los usuarios.
 
+Para el desarrollo de la aplicación se utilizará PHP como lenguaje de programación y Laravel como framework de desarrollo, con el propósito de implementar las funcionalidades definidas para el proyecto.
+
 Durante su desarrollo se aplicarán buenas prácticas de ingeniería de software, incluyendo:
 
 - Definición de requerimientos funcionales y no funcionales.
