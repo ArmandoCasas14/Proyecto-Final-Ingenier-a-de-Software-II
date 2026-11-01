@@ -2,7 +2,7 @@
 
 ## 1. Requisitos Funcionales (RF)
 
-### Entidad 1: Gestión de Funciones / Películas
+### Gestión de Funciones / Películas
 * **RF-01: Registrar Función**
   * El sistema debe permitir registrar una función de cine indicando: título de la película, sala, fecha, hora y precio de la entrada.
 * **RF-02: Listar Funciones**
@@ -10,7 +10,7 @@
 * **RF-03: Editar/Eliminar Función**
   * El sistema debe permitir actualizar los datos de una función o eliminarla del sistema.
 
-### Entidad 2: Gestión de Entradas / Boletos
+### Gestión de Entradas / Boletos
 * **RF-04: Registrar Entrada (Venta/Acceso)**
   * El sistema debe permitir generar una entrada asociada a una función existente, indicando el nombre del cliente y el número de asiento.
 * **RF-05: Consultar / Verificar Entrada**
