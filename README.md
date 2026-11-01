@@ -40,3 +40,6 @@ Durante su desarrollo se aplicarán buenas prácticas de ingeniería de software
 - Elaboración de documentación técnica.
 
 El alcance se limita a la construcción de una aplicación funcional con las características definidas por el equipo para el desarrollo académico de la asignatura. No contempla necesariamente la integración con plataformas comerciales de venta de entradas, pasarelas de pago ni sistemas externos de gestión de cines.
+
+Link del Trello 
+https://trello.com/b/JEvDecZm/proyecto-final-ingenieria-de-software-ii
