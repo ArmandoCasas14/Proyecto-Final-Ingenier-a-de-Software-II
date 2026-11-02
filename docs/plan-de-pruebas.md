@@ -8,71 +8,78 @@ Este documento define la estrategia y los casos de prueba necesarios para valida
   * **Pruebas Unitarias / Integración:** Validación de la lógica de negocio (registro de funciones, emisión de entradas, capacidad de sala y validaciones).
   * **Pruebas de Funcionalidad Básica:** Verificación de flujos correctos y manejo de datos inválidos.
 
-## 2. Estrategia de Pruebas y Herramientas
+## 2. Herramientas y Entorno de Pruebas
 
-* **Nivel de Pruebas:**
-  * Pruebas unitarias e integración sobre las entidades principales (`Función` y `Entrada`).
-
-* **Framework Sugerido:**
-  * `unittest` / `pytest` (para Python) o `Jest` (para JavaScript), según la tecnología de implementación.
-
-* **Criterio de Éxito:**
-  * Todos los casos de prueba deben ejecutarse de manera automatizada y finalizar en estado exitoso (PASS).
+* **Framework de Pruebas:** PHPUnit (integrado de forma nativa en Laravel) / Pest PHP.
+* **Entorno de Base de Datos:** Base de datos SQLite en memoria (`:memory:`) para la ejecución rápida e aislada de pruebas automáticas.
+* **Comandos de Ejecución:**
+  * Ejecutar todas las pruebas: `php artisan test`
+  * Ejecutar una suite específica: `php artisan test --testsuite=Feature`
 
 ## 3. Casos de Prueba Automatizados
 
-### CP-01: Registro Exitoso de Función (RF-01 / CA-01)
+* **CP-RF01: Registrar nueva función de cine**
+  * **RF Asociado:** RF-01 (Registro de Funciones).
+  * **Descripción:** Verificar que el sistema cree una función cuando los datos son válidos.
+  * **Método / Ruta:** `POST /funciones`
+  * **Datos de Entrada:**
+    * `{"pelicula": "Batman", "sala": "Sala 1", "fecha": "2026-11-10", "hora": "18:00", "precio": 15000}`
+  * **Resultado Esperado:**
+    * Código HTTP `201 Created` o redirección exitosa, y confirmación en base de datos con `$this->assertDatabaseHas('funciones', ['pelicula' => 'Batman']);`.
 
-* **Objetivo:**
-  * Verificar que una función con datos válidos se crea correctamente en el sistema.
+* **CP-RF02: Listar funciones disponibles**
+  * **RF Asociado:** RF-02 (Consulta / Listado de Funciones).
+  * **Descripción:** Verificar que la vista o endpoint retorne el listado de funciones activas.
+  * **Método / Ruta:** `GET /funciones`
+  * **Datos de Entrada:**
+    * Ninguno (se crean 2 funciones previas en el test con `Funcion::factory()`).
+  * **Resultado Esperado:**
+    * Código HTTP `200 OK` y presencia de los títulos registrados en la respuesta (`$response->assertSee(...)`).
 
-* **Datos de entrada:**
-  * Película: "Avatar 2"
-  * Sala: "Sala 1"
-  * Fecha/Hora: "2026-11-10 18:00"
-  * Precio: 15000
+* **CP-RF03: Editar/Eliminar función existente**
+  * **RF Asociado:** RF-03 (Edición y Eliminación de Funciones).
+  * **Descripción:** Verificar que se actualice la información de una función seleccionada.
+  * **Método / Ruta:** `PUT /funciones/{id}`
+  * **Datos de Entrada:**
+    * `{"precio": 18000}`
+  * **Resultado Esperado:**
+    * Código HTTP `200 OK` y verificación en base de datos de que el precio cambió a `18000`.
 
-* **Resultado Esperado:**
-  * La función se registra exitosamente con un ID asignado.
+* **CP-RF04: Emitir entrada para una función**
+  * **RF Asociado:** RF-04 (Emisión de Entradas).
+  * **Descripción:** Verificar el registro exitoso de una entrada asociada a un cliente y asiento.
+  * **Método / Ruta:** `POST /entradas`
+  * **Datos de Entrada:**
+    * `{"funcion_id": 1, "cliente": "Juan Pérez", "asiento": "A5"}`
+  * **Resultado Esperado:**
+    * Código HTTP `201 Created` y registro en la tabla `entradas` vinculando el `funcion_id`.
 
-### CP-02: Rechazo de Función con Precio Inválido (RF-01 / CA-02)
+* **CP-RF05: Consultar y verificar validez de una entrada**
+  * **RF Asociado:** RF-05 (Búsqueda y Verificación de Entradas).
+  * **Descripción:** Verificar que se consulten los datos de un boleto emitido mediante su código o ID.
+  * **Método / Ruta:** `GET /entradas/{codigo}`
+  * **Datos de Entrada:**
+    * Código de entrada válido previamente generado.
+  * **Resultado Esperado:**
+    * Código HTTP `200 OK` retornando el nombre del cliente, sala y confirmación de estado activo.
 
-* **Objetivo:**
-  * Comprobar que el sistema impida el registro de funciones con precio menor o igual a cero.
+* **CP-RF06: Anular o eliminar una entrada**
+  * **RF Asociado:** RF-06 (Cancelar / Eliminar Entrada).
+  * **Descripción:** Verificar la cancelación de una entrada previa.
+  * **Método / Ruta:** `DELETE /entradas/{id}`
+  * **Datos de Entrada:**
+    * ID de una entrada existente.
+  * **Resultado Esperado:**
+    * Código HTTP `200 OK` (o `204 No Content`) y verificación de que la entrada cambió de estado o se eliminó de la base de datos (`$this->assertDatabaseMissing(...)`).
 
-* **Datos de entrada:**
-  * Película: "Batman"
-  * Sala: "Sala 2"
-  * Fecha/Hora: "2026-11-10 20:00"
-  * Precio: -5000 (o 0)
-
-* **Resultado Esperado:**
-  * El sistema rechaza el registro y muestra un mensaje de error indicando que el precio debe ser positivo.
-
-### CP-03: Emisión Exitosa de Entrada (RF-04 / CA-05)
-
-* **Objetivo:**
-  * Verificar que se pueda generar una entrada vinculada a una función existente.
-
-* **Datos de entrada:**
-  * Función ID: 1
-  * Cliente: "Juan Pérez"
-  * Asiento: "A-12"
-
-* **Resultado Esperado:**
-  * La entrada se genera vinculada a la función especificada y se retorna un código o ID de entrada válido.
-
-### CP-04: Control de Capacidad Máxima de la Sala (RF-07 / CA-08)
-
-* **Objetivo:**
-  * Validar que no se puedan registrar más entradas que el número límite de asientos asignados a la sala.
-
-* **Datos de entrada:**
-  * Capacidad asignada a la función: 2 asientos.
-  * Intentar registrar 3 entradas para esa misma función.
-
-* **Resultado Esperado:**
-  * Las primeras 2 entradas se crean correctamente; el registro de la tercera entrada es rechazado por falta de cupo disponible.
+* **CP-RF07: Control y límite de capacidad de sala**
+  * **RF Asociado:** RF-07 (Definir Capacidad de la Sala).
+  * **Descripción:** Verificar que el sistema impida vender entradas si la función alcanzó la capacidad máxima.
+  * **Método / Ruta:** `POST /entradas`
+  * **Datos de Entrada:**
+    * Intentar registrar la entrada N+1 en una sala con capacidad N.
+  * **Resultado Esperado:**
+    * Respuesta HTTP `422 Unprocessable Entity` (o mensaje de validación) indicando que la sala no tiene asientos disponibles.
 
 ## 4. Criterios de Aceptación del Plan de Pruebas
 
