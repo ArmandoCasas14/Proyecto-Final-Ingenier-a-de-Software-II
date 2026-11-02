@@ -11,7 +11,7 @@ Este documento define la estrategia y los casos de prueba necesarios para valida
 ## 2. Herramientas y Entorno de Pruebas
 
 * **Framework de Pruebas:** PHPUnit (integrado de forma nativa en Laravel) / Pest PHP.
-* **Entorno de Base de Datos:** Base de datos SQLite en memoria (`:memory:`) para la ejecución rápida e aislada de pruebas automáticas.
+* **Entorno de Base de Datos:** Base de datos MySQL configurada para pruebas (utilizando transacciones o migraciones por cada test para asegurar entornos limpios y aislados en cada ejecución).
 * **Comandos de Ejecución:**
   * Ejecutar todas las pruebas: `php artisan test`
   * Ejecutar una suite específica: `php artisan test --testsuite=Feature`
