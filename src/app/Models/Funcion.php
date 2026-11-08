@@ -27,4 +27,8 @@ class Funcion extends Model
     {
         return $this->belongsTo(Sala::class);
     }
+    public function entradas()
+    {
+        return $this->hasMany(Entrada::class, 'funcion_id');
+    }
 }

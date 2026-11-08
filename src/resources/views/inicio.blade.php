@@ -180,7 +180,7 @@
         <p>Entradas</p>
 
         <a href="{{ url('/entradas') }}">🎟️ Registrar entradas</a>
-        <a href="{{ url('/consultar-entradas') }}">🔎 Consultar entradas</a>
+        <a href="{{ route('entradas.buscar') }}">🔎 Consultar entradas</a>
 
     </aside>
 

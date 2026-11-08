@@ -19,4 +19,8 @@ class Asiento extends Model
     {
         return $this->belongsTo(Sala::class);
     }
+    public function entradas()
+    {
+        return $this->hasMany(Entrada::class, 'asiento_id');
+    }
 }
