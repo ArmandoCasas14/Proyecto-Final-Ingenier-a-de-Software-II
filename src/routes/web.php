@@ -25,3 +25,5 @@ Route::resource('entradas', EntradaController::class)
     ->except(['show', 'edit', 'update']);
 Route::get('/entradas/buscar', [EntradaController::class, 'buscar'])
     ->name('entradas.buscar');
+Route::post('/entradas/{entrada}/verificar', [EntradaController::class, 'verificar'])
+    ->name('entradas.verificar');

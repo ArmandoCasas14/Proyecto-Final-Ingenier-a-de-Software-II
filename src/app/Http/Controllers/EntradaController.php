@@ -85,7 +85,25 @@ class EntradaController extends Controller
         return view('entradas.buscar', compact('entradas', 'busqueda'));
     }
 
+    // Verificar el ingreso de una entrada
+    public function verificar(Entrada $entrada)
+    {
+        if ($entrada->estado !== 'activa') {
+            return back()->with(
+                'error',
+                'Esta entrada no se puede verificar porque ya fue utilizada o está cancelada.'
+            );
+        }
 
+        $entrada->update([
+            'estado' => 'utilizada'
+        ]);
+
+        return back()->with(
+            'success',
+            'Ingreso verificado correctamente. La entrada ahora está marcada como utilizada.'
+        );
+    }
     // Registrar una entrada
     public function store(Request $request)
     {

@@ -10,6 +10,19 @@
 
     <h2>Consultar entradas</h2>
 
+    {{-- Mensajes del sistema --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <form action="{{ route('entradas.buscar') }}" method="GET">
 
         <label for="busqueda">Código o nombre del cliente:</label>
@@ -51,6 +64,7 @@
                 <th>Hora</th>
                 <th>Asiento</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -66,12 +80,37 @@
                     <td>{{ substr($entrada->funcion->hora, 0, 5) }}</td>
                     <td>{{ $entrada->asiento->fila }}{{ $entrada->asiento->numero }}</td>
                     <td>{{ ucfirst($entrada->estado) }}</td>
+
+                    <td>
+                        @if($entrada->estado === 'activa')
+
+                            <form
+                                action="{{ route('entradas.verificar', $entrada) }}"
+                                method="POST"
+                            >
+                                @csrf
+
+                                <button type="submit" class="btn">
+                                    Verificar ingreso
+                                </button>
+                            </form>
+
+                        @elseif($entrada->estado === 'utilizada')
+
+                            <span>Ingreso verificado</span>
+
+                        @else
+
+                            <span>Entrada cancelada</span>
+
+                        @endif
+                    </td>
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                         No se encontraron entradas con esos datos.
                     </td>
                 </tr>
