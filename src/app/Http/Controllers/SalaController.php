@@ -23,26 +23,55 @@ class SalaController extends Controller
     }
 
     // Registrar sala
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:50',
-            'filas' => 'required|integer|min:1',
-            'asientos_for_fila' => 'required|integer|min:1'
-        ]);
+    // Registrar sala y generar sus asientos
+public function store(Request $request)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:50',
+        'filas' => 'required|integer|min:1|max:26',
+        'asientos_for_fila' => 'required|integer|min:1'
+    ]);
 
-        $capacidad = $request->filas * $request->asientos_for_fila;
+    // Calcular capacidad
+    $capacidad = $request->filas * $request->asientos_for_fila;
 
-        Sala::create([
+    // Registrar la sala y generar sus asientos en una transacción
+    DB::transaction(function () use ($request, $capacidad) {
+
+        $sala = Sala::create([
             'nombre' => $request->nombre,
             'filas' => $request->filas,
             'asientos_for_fila' => $request->asientos_for_fila,
             'capacidad' => $capacidad
         ]);
 
-        return redirect()->route('salas.index')
-            ->with('success', 'Sala registrada correctamente.');
-    }
+        // Generar los asientos de la sala
+        $asientos = [];
+
+        for ($i = 0; $i < $request->filas; $i++) {
+
+            // Convertir el número de fila en una letra
+            $fila = chr(65 + $i);
+
+            for ($j = 1; $j <= $request->asientos_for_fila; $j++) {
+
+                $asientos[] = [
+                    'sala_id' => $sala->id,
+                    'fila' => $fila,
+                    'numero' => $j,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+        }
+
+        // Guardar todos los asientos
+        DB::table('asientos')->insert($asientos);
+    });
+
+    return redirect()->route('salas.index')
+        ->with('success', 'Sala registrada correctamente con sus asientos.');
+}
 
     // Mostrar formulario de edición
     public function edit(Sala $sala)
