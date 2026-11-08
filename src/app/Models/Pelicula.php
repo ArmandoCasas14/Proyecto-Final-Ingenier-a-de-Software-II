@@ -12,4 +12,8 @@ class Pelicula extends Model
     protected $fillable = [
         'nombre'
     ];
+    public function funciones()
+    {
+        return $this->hasMany(Funcion::class, 'pelicula_id');
+    }
 }
