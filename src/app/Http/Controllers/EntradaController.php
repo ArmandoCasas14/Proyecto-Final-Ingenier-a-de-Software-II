@@ -53,13 +53,22 @@ class EntradaController extends Controller
     }
     
     // Consultar entradas por código o nombre del cliente
+    // Consultar entradas por código o nombre del cliente
     public function buscar(Request $request)
     {
+        $busqueda = $request->input('busqueda');
+
+        // Si todavía no se ha realizado una búsqueda,
+        // mostrar la vista vacía.
+        if (!$busqueda) {
+            $entradas = collect();
+
+            return view('entradas.buscar', compact('entradas', 'busqueda'));
+        }
+
         $request->validate([
             'busqueda' => 'required|string|max:70'
         ]);
-
-        $busqueda = $request->busqueda;
 
         $entradas = Entrada::with([
             'funcion.pelicula',

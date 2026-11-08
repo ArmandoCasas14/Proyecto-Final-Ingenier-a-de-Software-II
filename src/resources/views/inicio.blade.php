@@ -227,7 +227,7 @@
                 <p>Registra entradas y administra la venta de asientos.</p>
             </a>
 
-            <a href="{{ url('/consultar-entradas') }}" class="module">
+            <a href="{{ url('entradas.buscar') }}" class="module">
                 <div class="icon">🔎</div>
                 <h3>Verificar entradas</h3>
                 <p>Busca entradas por código o nombre del cliente.</p>
