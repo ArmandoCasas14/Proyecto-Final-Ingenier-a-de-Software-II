@@ -22,7 +22,7 @@ return new class extends Migration
                 "CASE WHEN estado IN ('activa', 'utilizada') THEN asiento_id ELSE
                 NULL END"
             );
-            $table->unique(['funcion_id', 'asiento_activo_id'], 'entradas_funcion_asiento_activo_unique ');
+            $table->unique(['funcion_id', 'asiento_activo_id'], 'entradas_funcion_asiento_activo_unique');
             $table->timestamps();
         });
     }
