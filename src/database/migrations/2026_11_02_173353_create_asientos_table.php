@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('asientos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sala_id')->constrained('salas')->restrictOnUpdate();
-            $table->string('numero',5);
+            $table->string('fila',5);
             $table->unsignedBigInteger('numero');
             $table->unique(['sala_id','fila','numero']);
             $table->timestamps();
