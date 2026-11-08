@@ -125,7 +125,7 @@
 
 <header>
     <a href="{{ route('inicio') }}">🎬 CineManager</a>
-    <span> / Gestión de películas</span>
+    <span> / @yield('seccion', 'Gestión de películas')</span>
 </header>
 
 <main>

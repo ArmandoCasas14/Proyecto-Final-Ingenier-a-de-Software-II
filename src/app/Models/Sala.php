@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sala extends Model
 {
-    //
+    protected $table = 'salas';
+
+    protected $fillable = [
+        'nombre',
+        'filas',
+        'asientos_for_fila',
+        'capacidad'
+    ];
 }
