@@ -14,4 +14,8 @@ class Sala extends Model
         'asientos_for_fila',
         'capacidad'
     ];
+    public function asientos()
+    {
+        return $this->hasMany(Asiento::class);
+    }
 }
