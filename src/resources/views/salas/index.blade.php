@@ -45,7 +45,10 @@
 
                     <td>
                         <div class="actions">
-
+                            <a href="{{ route('salas.asientos', $sala) }}"
+                                class="btn">
+                                Ver asientos
+                            </a>
                             <a href="{{ route('salas.edit', $sala) }}"
                                class="btn">
                                 Editar
