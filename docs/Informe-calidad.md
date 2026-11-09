@@ -1,4 +1,4 @@
-# Reporte de errores – CineManager
+# 1. Reporte de errores – CineManager
 
 ## BUG-001 – Botón lateral de consulta de entradas
 
@@ -66,7 +66,7 @@ Media. El error impedía utilizar uno de los accesos principales a la funcionali
 
 Media. Se debía corregir para garantizar que la tarjeta de acceso rápido cumpliera su función y permitiera navegar correctamente dentro del sistema.
 
-## 3. Métricas de Control de Calidad
+## 2. Métricas de Control de Calidad
 
 * **Resumen General de Defectos:**
   * **Total de errores reportados:** 2
@@ -88,7 +88,7 @@ Media. Se debía corregir para garantizar que la tarjeta de acceso rápido cumpl
   * **Causa raíz principal:** Mala referencia de rutas estáticas (`url()` vs `route()`) y falta de manejo de parámetros opcionales en el controlador de la interfaz de consulta (`buscar()`).
   * **Tiempo medio de resolución (MTTR):** Inmediato / Mismo ciclo de iteración.
 
-## 4. Mantenimiento y Acciones Correctivas
+## 3. Mantenimiento y Acciones Correctivas
 
 * **Mantenimiento Correctivo (Soluciones Aplicadas):**
   * **Ajuste en la lógica de control (`EntradaController.php`):**
