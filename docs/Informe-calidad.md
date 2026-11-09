@@ -65,3 +65,46 @@ Media. El error impedía utilizar uno de los accesos principales a la funcionali
 **Justificación de prioridad:**
 
 Media. Se debía corregir para garantizar que la tarjeta de acceso rápido cumpliera su función y permitiera navegar correctamente dentro del sistema.
+
+## 3. Métricas de Control de Calidad
+
+* **Resumen General de Defectos:**
+  * **Total de errores reportados:** 2
+  * **Total de errores resueltos:** 2
+  * **Tasa de resolución:** 100% de los defectos identificados fueron subsanados antes del despliegue o entrega final.
+
+* **Clasificación por Severidad:**
+  * **Alta (Crítico / Bloqueante):** 0 (0%)
+  * **Media (Funcionalidad limitada / Error de navegación):** 2 (100%)
+  * **Baja (Cosmético / Menor):** 0 (0%)
+
+* **Clasificación por Prioridad de Atención:**
+  * **Alta (Atención inmediata):** 0 (0%)
+  * **Media (Atención programada en el sprint):** 2 (100%)
+  * **Baja (Deseable / Ajuste secundario):** 0 (0%)
+
+* **Análisis de Impacto y Densidad de Errores:**
+  * **Módulos afectados:** Módulo de navegación general (sidebar) y panel de control principal (dashboard).
+  * **Causa raíz principal:** Mala referencia de rutas estáticas (`url()` vs `route()`) y falta de manejo de parámetros opcionales en el controlador de la interfaz de consulta (`buscar()`).
+  * **Tiempo medio de resolución (MTTR):** Inmediato / Mismo ciclo de iteración.
+
+## 4. Mantenimiento y Acciones Correctivas
+
+* **Mantenimiento Correctivo (Soluciones Aplicadas):**
+  * **Ajuste en la lógica de control (`EntradaController.php`):**
+    * Se modificó el método `buscar()` para validar la presencia de parámetros de búsqueda (`$request->has('codigo')` o `$request->filled('q')`).
+    * Se configuró el flujo para que, si no se envía ningún parámetro (acceso inicial a la vista), el controlador retorne la plantilla Blade con la lista completa o la vista de consulta limpia, en lugar de invocar una redirección forzada al `home`.
+
+  * **Ajuste de enrutamiento en vistas Blade (`navigation.blade.php` / `dashboard.blade.php`):**
+    * Se reemplazaron las direcciones escritas a mano (`url('entradas.buscar')`) por el helper nominal de Laravel (`route('entradas.buscar')`).
+    * Se verificó la consistencia en los nombres de las rutas definidos en el archivo `routes/web.php`.
+
+* **Mantenimiento Preventivo y Buenas Prácticas:**
+  * **Estandarización de enrutamiento:**
+    * Exigir el uso exclusivo del helper `route()` en todos los botones, enlaces y formularios del proyecto para evitar errores si la URI cambia en el futuro.
+
+  * **Firmas de métodos flexibles:**
+    * Asegurar que todos los métodos del controlador encargados de filtrado o búsqueda soporten parámetros opcionales o nulos sin romper la renderización de la vista base.
+
+  * **Pruebas de navegación e integración (Feature Tests):**
+    * Incorporar en la suite de PHPUnit pruebas de código HTTP `200 OK` al acceder directamente a las rutas `GET` del menú lateral para prevenir regresiones.
